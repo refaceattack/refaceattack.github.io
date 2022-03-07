@@ -29,8 +29,8 @@
         </style>
     </head>
     <body>
-        <h3 style="text-align: center; font-size: 22px;">ReFace: Real-time and Practical Adversarial Attacks on Facial Recognition Systems</h3>
-        <h4 style="text-align: center"><a href="https://shehzeen.github.io/">*Shehzeen Hussain</a>, <a>*Todd Huster</a>, <a>Chris Mesterharm</a>, <a>Kevin An</a>, <a href="https://farinaz.eng.ucsd.edu/home">Farinaz Koushanfar</a>, <br>University of California San Diego, Perspecta Labs<br><i>* Equal contribution</i></h4>
+        <h3 style="text-align: center; font-size: 22px;">ReFace: Real-time Adversarial Attacks on Facial Recognition Systems</h3>
+        <!-- <h4 style="text-align: center"><a href="https://shehzeen.github.io/">*Shehzeen Hussain</a>, <a>*Todd Huster</a>, <a>Chris Mesterharm</a>, <a>Paarth Neekhara</a>,<a>Harshvardhan Sikka</a>,<a>Kevin An</a>, <a href="https://farinaz.eng.ucsd.edu/home">Farinaz Koushanfar</a>, <br>University of California San Diego, Peraton Labs<br><i>* Equal contribution</i></h4> -->
         <h4 style="text-align: center">Conference TBD</h4>
         <hr>
        
@@ -63,8 +63,7 @@
         </div>
 
          <p>
-            <i>Deepfakes</i> or facially manipulated videos, can be used maliciously to spread disinformation, harass individuals or defame famous personalities.
-            Recently developed Deepfake detection methods rely on Convolutional Neural Network (CNN) based classifiers to distinguish AI-generated fake videos from real videos. In this work, we demonstrate that it is possible to bypass such detectors by adversarially modifying fake videos synthesized using existing Deepfake generation methods. We design adversarial examples for the <a href="http://www.niessnerlab.org/projects/roessler2019faceforensicspp.html">FaceForensics++ dataset</a> to fool Deepfake detectors.
+            Deep neural network based face recognition models have been shown to be vulnerable to adversarial examples. However, many of the past attacks require the adversary to solve an input-dependent optimization problem using gradient descent which makes the attack impractical in real-time. These adversarial examples are also tightly coupled to the attacked model and aren't as successful in transferring to different models. In this work, we propose a real-time, highly-transferable attack on face recognition models based on Adversarial Transformation Networks (ATNs). We find that the white-box attack success rate of a pure U-Net ATN falls substantially short of gradient-based attacks like PGD on large face recognition datasets. We therefore propose a new architecture for ATNs that closes this gap while maintaining a 10000 times speedup over PGD. Furthermore, we find that at a given perturbation magnitude, our ATN adversarial perturbations are more effective in transferring to new facial recognition models than PGD. ReFace attacks can successfully deceive commercial face recognition services in a transfer attack setting and reduce face identification accuracy from 82% to 16.4% for AWS SearchFaces API and Azure face verification accuracy from 91% to 50.1%.
         </p>
 
         <hr>
@@ -76,12 +75,7 @@
                     
                     <td style="width: 50%;">
                         <p>
-                            We propose attacks which target Deepfake detectors that rely on CNN based classification models. The victim detectors used in our experiments, work on the frame level and classify each frame independently as either <i>Real</i> or <i>Fake</i> using the following <a href="http://www.niessnerlab.org/projects/roessler2019faceforensicspp.html">two-step pipeline</a>:
-                            <ul>
-                                <li>A face tracking model extracts the bounding box of the face in a given frame.</li>
-                                <li>The cropped face is then resized appropriately and passed as input to a CNN based classifier to be labelled as either real or fake. In our work, we consider two victim CNN classifiers: <a href="https://arxiv.org/abs/1610.02357"> XceptionNet</a> and <a href="https://arxiv.org/abs/1809.00888">MesoNet</a></li>
-                            </ul>
-                            In order to fool such detectors into classifying fake videos as real, we craft adversarial examples for each frame of the given video and combine them together into an adversarially modified fake video. We perform the attack in both white box and black box attack settings assuming different attacker capabilities and goals, and evaluate the effectiveness of attack on both raw and compressed adversarial videos.
+
                         </p>
                     </td>
 
@@ -96,7 +90,7 @@
         <hr>
         <div class = "divexamples">
             <h3 style="text-align: center;">White Box Attacks</h3>
-            <p>In this setting, we assume the attacker has complete knowledge of the detector model's architecture and parameters. We use iterative gradient sign based attacks to craft adversarial examples in this setting. We use <a href="https://arxiv.org/pdf/1707.07397.pdf">Expectation Over Transforms</a> in our robust white box attack to craft adversarial videos that are robust to video and image compression codecs. Following are some example videos of our white box attacks on XceptionNet.
+            <p>
             </p>
             <table id = "whitebox_table">
               <tr class = "theader">
@@ -111,7 +105,7 @@
         <div class = "divexamples">
             
             <h3 style="text-align: center;">Black Box Attacks</h3>
-            <p>In this setting, we assume the attacker has the knowledge of the detector pipeline structure but can only query the classification CNN as a black-box to obtain the probability of the frame being real or fake. We use <a href="https://arxiv.org/abs/1804.08598">Natural Evolution Strategy (NES)</a> for estimating the gradient of output probabilities with respect to the input to craft adversarial examples in this black-box setting. Similar to the white-box setting, we craft adversarial examples that are robust to compression by ensuring robustness to input transformations during training. Following are some example videos of our black box attacks on XceptionNet.
+            <p>
             </p>
             <table id = "blackbox_table">
               <tr class = "theader">
