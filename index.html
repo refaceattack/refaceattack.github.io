@@ -30,37 +30,11 @@
     </head>
     <body>
         <h3 style="text-align: center; font-size: 22px;">ReFace: Real-time Adversarial Attacks on Facial Recognition Systems</h3>
-        <!-- <h4 style="text-align: center"><a href="https://shehzeen.github.io/">*Shehzeen Hussain</a>, <a>*Todd Huster</a>, <a>Chris Mesterharm</a>, <a>Paarth Neekhara</a>,<a>Harshvardhan Sikka</a>,<a>Kevin An</a>, <a href="https://farinaz.eng.ucsd.edu/home">Farinaz Koushanfar</a>, <br>University of California San Diego, Peraton Labs<br><i>* Equal contribution</i></h4> -->
+        
         <h4 style="text-align: center">Conference TBD</h4>
         <hr>
        
-        <div style="width: 100%">
-            <table style="width: 100%;">
-                <tr>
-                    <td style="text-align: center; padding-bottom: 5px;">
-                        Deepfake detector (XceptionNet) on Fake Video
-                    </td>
-                    <td style="text-align: center; padding-bottom: 5px;">
-                        Deepfake detector (XceptionNet) on <b>Adversarial</b> Fake Video
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 50%; padding-left:20px; padding-right:20px;">
-                        <video controls style="width: 100%;">
-                          <source src="videos/video_main_fake.mp4" type="video/mp4">
-                          Your browser does not support the video tag.
-                        </video>
-                    </td>
-                    <td style="width: 50%; padding-left:20px; padding-right:20px;">
-                        <video controls style="width: 100%;">
-                          <source src="videos/video_main_adversarial.mp4" type="video/mp4">
-                          Your browser does not support the video tag.
-                        </video>
-                        
-                    </td>
-                </tr>
-            </table>
-        </div>
+
 
          <p>
             Deep neural network based face recognition models have been shown to be vulnerable to adversarial examples. However, many of the past attacks require the adversary to solve an input-dependent optimization problem using gradient descent which makes the attack impractical in real-time. These adversarial examples are also tightly coupled to the attacked model and aren't as successful in transferring to different models. In this work, we propose a real-time, highly-transferable attack on face recognition models based on Adversarial Transformation Networks (ATNs). We find that the white-box attack success rate of a pure U-Net ATN falls substantially short of gradient-based attacks like PGD on large face recognition datasets. We therefore propose a new architecture for ATNs that closes this gap while maintaining a 10000 times speedup over PGD. Furthermore, we find that at a given perturbation magnitude, our ATN adversarial perturbations are more effective in transferring to new facial recognition models than PGD. ReFace attacks can successfully deceive commercial face recognition services in a transfer attack setting and reduce face identification accuracy from 82% to 16.4% for AWS SearchFaces API and Azure face verification accuracy from 91% to 50.1%.
@@ -68,87 +42,36 @@
 
         <hr>
 
+        <div style="width: 100%">
+            <center>
+                <h2>
+                    ReFace Attack Demo - Real time attack on webcam stream
+                </h2>
+                <video controls style="width: 60%;">
+                  <source src="videos/ontap-demo2.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+
+            </center>
+        </div>
+        <hr>
         <div class="methodology">
             <h2 style="text-align: center;">Methodology</h2>
-            <table>
-                <tr>
-                    
-                    <td style="width: 50%;">
-                        <p>
-
-                        </p>
-                    </td>
-
-                    <td style="width: 50%;">
-                        <img src="images/attack_workflow.png" style="width: 100%; padding-right: 20px;">
-                    </td>
-
-                </tr>
-            </table>
-            
+            <p>
+                We design a perturbation generator that operates in real-time and finds a quasi-imperceptible adversarial perturbation for an input image, which when added to the input causes mis-prediction of the embedding vector thereby degrading the verification and identification performance of the face recognition model. When attacking a <b>face verification</b> system, we adversarially perturb one of the two probe images. In this attack setting, our goal is to reduce the true recall rate of the verification system (performance on positive pairs). When attacking a <b>face identification</b> system, we assume the probe images have been adversarially perturbed while the dataset of gallery images is benign. In this attack setting, our goal is to lower the recognition rate of the face identification system. 
+            </p>
+            <center>
+            <img src="images/reface_workflow.png" style="width: 70%;">
+            </center>
         </div>
         <hr>
-        <div class = "divexamples">
-            <h3 style="text-align: center;">White Box Attacks</h3>
-            <p>
-            </p>
-            <table id = "whitebox_table">
-              <tr class = "theader">
-                <td style="width: 30px;"></td>
-                <td style="text-align: center;">Fake (From dataset)</td>
-                <td style="text-align: center;">White-box</td>
-                <td style="text-align: center;">Robust White-box</td>
-              </tr>
-            </table>
-        </div>
-        <hr>
-        <div class = "divexamples">
-            
-            <h3 style="text-align: center;">Black Box Attacks</h3>
-            <p>
-            </p>
-            <table id = "blackbox_table">
-              <tr class = "theader">
-                <td style="width: 30px;"></td>
-                <td style="text-align: center;">Fake (From dataset)</td>
-                <td style="text-align: center;">Black-box</td>
-                <td style="text-align: center;">Robust Black-box</td>
-              </tr>
-            </table>
-        </div>
 
-        
-
+    
 
     </body>
 
     <script type="text/javascript">
-        var video_width = 300;
-        function filltable(table_id, attack_types){
-            var fake_types = ["df", "f2f", "fs", "nt"];
-            // var attack_types = ["original", "wb", "rwb", "bb", "rbb"];
-            var fake_type_name_map = {
-                'df' : ['DeepFake', 'https://github.com/deepfakes/faceswap'],
-                'f2f' : ['Face2Face', 'https://niessnerlab.org/papers/2019/8facetoface/thies2018face.pdf'],
-                'fs' : ['FaceSwap', 'https://github.com/MarekKowalski/FaceSwap/'],
-                'nt' : ['NeuralTextures', 'https://arxiv.org/abs/1904.12356']
-            }
-            for(var i = 0; i < fake_types.length; i++){
-                var tr_string = "<tr><td style='width: 30px; text-align: center;'>" + '<a href="' + fake_type_name_map[fake_types[i]][1] + '">' + fake_type_name_map[fake_types[i]][0]  + "</a></td>"
-                for(var j = 0; j < attack_types.length; j++){
-                    var td_str = "<td style='padding: 10px;'>";
-                    td_str += '<video width="'+ video_width +'" controls>';
-                    td_str += ' <source src="videos/'+ fake_types[i] + '/' + attack_types[j] + '' + '.mp4" type="video/mp4">'
-                    td_str += 'Your browser does not support the video tag.'
-                    td_str += '</video></td>'
-                    tr_string += td_str;
-                }
-                tr_string += "</tr>";
-                $(table_id).find('tbody').append( tr_string ); 
-            }
-        }
-        filltable('#whitebox_table', ["original", "wb", "rwb"]);
-        filltable('#blackbox_table', ["original", "bb", "rbb"]);
+        
     </script>
 
 </html>
